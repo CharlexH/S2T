@@ -5,17 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>音频转文字</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/wavesurfer.js"></script>
 </head>
 <body>
-  <h1>音频/视频上传并转文字</h1>
-  <div id="upload-area">
-    <input type="file" id="file-input" accept="audio/*,video/*">
-    <label for="file-input">拖拽或点击上传音频/视频</label>
-  </div>
-  <div id="result">
-    <h2>文字稿</h2>
-    <p id="transcription"></p>
+  <h1>音频转文字</h1>
+  <div id="mainArea">
+    <div id="uploadArea" class="drop-zone">
+      <input type="file" id="file-input" accept="audio/*,video/*" hidden>
+      <div class="upload-content">
+        <svg width="120" height="121" viewBox="0 0 120 121" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M60 11.75C62.0711 11.75 63.75 13.4289 63.75 15.5V108C63.75 110.071 62.0711 111.75 60 111.75C57.9289 111.75 56.25 110.071 56.25 108V15.5C56.25 13.4289 57.9289 11.75 60 11.75ZM45 26.75C47.0711 26.75 48.75 28.4289 48.75 30.5V93C48.75 95.0711 47.0711 96.75 45 96.75C42.9289 96.75 41.25 95.0711 41.25 93V30.5C41.25 28.4289 42.9289 26.75 45 26.75ZM90 31.75C92.0711 31.75 93.75 33.4289 93.75 35.5V88C93.75 90.0711 92.0711 91.75 90 91.75C87.9289 91.75 86.25 90.0711 86.25 88V35.5C86.25 33.4289 87.9289 31.75 90 31.75ZM15 36.75C17.0711 36.75 18.75 38.4289 18.75 40.5V83C18.75 85.0711 17.0711 86.75 15 86.75C12.9289 86.75 11.25 85.0711 11.25 83V40.5C11.25 38.4289 12.9289 36.75 15 36.75ZM75 41.75C77.0711 41.75 78.75 43.4289 78.75 45.5V78C78.75 80.0711 77.0711 81.75 75 81.75C72.9289 81.75 71.25 80.0711 71.25 78V45.5C71.25 43.4289 72.9289 41.75 75 41.75ZM30 46.75C32.0711 46.75 33.75 48.4289 33.75 50.5V73C33.75 75.0711 32.0711 76.75 30 76.75C27.9289 76.75 26.25 75.0711 26.25 73V50.5C26.25 48.4289 27.9289 46.75 30 46.75ZM105 46.75C107.071 46.75 108.75 48.4289 108.75 50.5V73C108.75 75.0711 107.071 76.75 105 76.75C102.929 76.75 101.25 75.0711 101.25 73V50.5C101.25 48.4289 102.929 46.75 105 46.75Z" fill="url(#paint0_linear_61_46)"/>
+          <defs>
+          <linearGradient id="paint0_linear_61_46" x1="60" y1="11.75" x2="60" y2="111.75" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#3F99FF"/>
+          <stop offset="1" stop-color="#C677FF"/>
+          </linearGradient>
+          </defs>
+        </svg>
+        <h2>拖入或点击添加</h2>
+        <p>支持音频/视频</p>
+        <p>格式支持：mp3、wav、pcm、m4a、m4v、amr、wma、aac、mp4、mpg、3gp
+          单个文件最长5小时、最大2GB，单次支持上传100个</p>
+      </div>
+      <div class="upload-status" style="display: none;">
+        <p class="file-name"></p>
+        <div class="progress-bar">
+          <div class="progress"></div>
+        </div>
+        <button class="cancel-button">取消</button>
+      </div>
+    </div>
+    <div id="audioPlayerArea" style="display: none;">
+      <div class="audio-controls">
+        <button id="playPauseButton" class="control-button">
+          <img src="../images/play.svg" alt="播放" id="playPauseIcon">
+        </button>
+      </div>
+      <div class="waveform-container">
+        <div id="waveform"></div>
+      </div>
+      <div class="time-display">
+        <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+      </div>
+    </div>
+    <div id="resultArea" style="display: none;">
+      <h2>文字稿</h2>
+      <p id="transcription"></p>
+    </div>
+    <button id="resetButton" style="display: none;">上传新文件</button>
   </div>
   <script src="script.js"></script>
+  <!-- 在 body 标签的末尾，在 script 标签之前添加以下代码 -->
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <h2>确认重置</h2>
+      <p>重新上传将清除所有记录，确定要继续吗？</p>
+      <div class="modal-buttons">
+        <button id="confirmYes" class="modal-button">确定</button>
+        <button id="confirmNo" class="modal-button">取消</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
