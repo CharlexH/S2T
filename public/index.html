@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>音频转文字</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/wavesurfer.js"></script>
+  <script src="https://unpkg.com/wavesurfer.js@7"></script>
+  <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/hover.min.js"></script>
 </head>
 <body>
-  <h1>音频转文字</h1>
+  <!-- <h1>音频转文字</h1> -->
   <div id="mainArea">
     <div id="uploadArea" class="drop-zone">
       <input type="file" id="file-input" accept="audio/*,video/*" hidden>
@@ -23,9 +24,8 @@
           </defs>
         </svg>
         <h2>拖入或点击添加</h2>
-        <p>支持音频/视频</p>
-        <p>格式支持：mp3、wav、pcm、m4a、m4v、amr、wma、aac、mp4、mpg、3gp
-          单个文件最长5小时、最大2GB，单次支持上传100个</p>
+        <h3>支持音频/视频</h3>
+        <p>格式支持：mp3、wav、pcm、m4a、m4v、amr、wma、aac、mp4</p>
       </div>
       <div class="upload-status" style="display: none;">
         <p class="file-name"></p>
@@ -36,21 +36,30 @@
       </div>
     </div>
     <div id="audioPlayerArea" style="display: none;">
-      <div class="audio-controls">
-        <button id="playPauseButton" class="control-button">
-          <img src="../images/play.svg" alt="播放" id="playPauseIcon">
-        </button>
+      <div class="controlsTitle">
+        <div class="audio-controls">
+          <button id="playPauseButton" class="control-button">
+            <img src="../images/play.svg" alt="播放" id="playPauseIcon">
+          </button>
+          <button id="resetButton" class="control-button">
+            <img src="../images/redo.svg" alt="返回首页">
+          </button>
+        </div>
+        <h2 id="transcription"></h2>
       </div>
-      <div class="waveform-container">
-        <div id="waveform"></div>
-      </div>
-      <div class="time-display">
-        <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+      <div class="waveformAll">
+        <div class="waveform-container">
+          <div id="waveform"></div>
+        </div>
+        <div class="time-display">
+          <span id="currentTime">00:00</span>
+          <!-- /  -->
+          <span id="totalTime">00:00</span>
+        </div>
       </div>
     </div>
     <div id="resultArea" style="display: none;">
-      <h2>文字稿</h2>
-      <p id="transcription"></p>
+
     </div>
     <button id="resetButton" style="display: none;">上传新文件</button>
   </div>
@@ -58,8 +67,8 @@
   <!-- 在 body 标签的末尾，在 script 标签之前添加以下代码 -->
   <div id="confirmModal" class="modal">
     <div class="modal-content">
-      <h2>确认重置</h2>
-      <p>重新上传将清除所有记录，确定要继续吗？</p>
+      <h1>🗑</h1>
+      <p>重新上传将清除所有记录</p>
       <div class="modal-buttons">
         <button id="confirmYes" class="modal-button">确定</button>
         <button id="confirmNo" class="modal-button">取消</button>

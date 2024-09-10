@@ -74,6 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (files.length > 0) {
       const file = files[0];
       showUploadStatus(file.name);
+      
+      // 获取文件名，不包括后缀
+      const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
+      document.getElementById('transcription').textContent = fileNameWithoutExtension; // 设置文件名
       uploadFile(file);
     }
   }
@@ -121,21 +125,32 @@ document.addEventListener('DOMContentLoaded', () => {
   function showAudioPlayer(file) {
     console.log('显示音频播放器');
     uploadArea.style.display = 'none';
-    audioPlayerArea.style.display = 'block';
+    audioPlayerArea.style.display = 'flex';
     resultArea.style.display = 'block';
     resetButton.style.display = 'block';
 
     wavesurfer = WaveSurfer.create({
       container: '#waveform',
-      waveColor: '#4F4A85',
-      progressColor: '#383351',
-      cursorColor: '#383351',
-      barWidth: 3,
-      barRadius: 3,
+      waveColor: '#ccc',
+      progressColor: '#0D0C22',
+      cursorColor: '#ff0000',
+      cursorWidth: 2,
+      barWidth: 2,
+      barRadius: 2,
+      barGap: 2,
+      barHeight: 1,
       responsive: true,
       height: 100,
-      normalize: true,
-      partialRender: true
+      partialRender: true,
+      plugins: [
+        WaveSurfer.Hover.create({
+          lineColor: '#ff0000',
+          lineWidth: 2,
+          labelBackground: '#555',
+          labelColor: '#fff',
+          labelSize: '11px',
+        }),
+      ],
     });
 
     wavesurfer.load(URL.createObjectURL(file));
@@ -157,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadArea.style.display = 'flex';
     resetButton.style.display = 'none';
     uploadStatus.style.display = 'none';
-    uploadContent.style.display = 'block';
+    uploadContent.style.display = 'flex';
     progressBar.style.width = '0%';
     fileName.textContent = '';
 
@@ -184,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const confirmNo = document.getElementById('confirmNo');
 
   function showConfirmModal() {
-    confirmModal.style.display = 'block';
+    confirmModal.style.display = 'flex';
   }
 
   function hideConfirmModal() {
@@ -262,6 +277,7 @@ function handleFiles(files) {
   if (files.length > 0) {
     const file = files[0];
     showUploadStatus(file.name);
+    document.getElementById('transcription').textContent = file.name; // 设置文件名
     uploadFile(file);
   }
 }
