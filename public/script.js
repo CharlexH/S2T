@@ -4,17 +4,18 @@ input.addEventListener('change', async function () {
   const formData = new FormData();
   formData.append('file', file);
 
-  // Send the file to the Cloudflare Worker for transcription
+  // 发送文件到 Cloudflare Worker 并获取结果
   const response = await fetch('/upload', {
     method: 'POST',
     body: formData
   });
 
-  // Display the transcription in resultArea
   const result = await response.json();
+
+  // 提取并显示 text 部分
   const resultArea = document.getElementById('resultArea');
-  resultArea.style.display = 'flex';
-  resultArea.textContent = `Transcript: ${result.transcript}`;
+  resultArea.style.display = 'block';
+  resultArea.textContent = result.text; // 显示 AI 返回的 text 字段内容
 });
 
 document.addEventListener('DOMContentLoaded', () => {

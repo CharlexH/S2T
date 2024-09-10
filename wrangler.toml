@@ -1,6 +1,6 @@
-name = "S2T"
-type = "javascript"
-account_id = "zghzhhc@gmail.com"
-workers_dev = true
+name = "s2t"
+main = "index.js"
+compatibility_date = "2023-08-23"
 
-# 如果有使用 Durable Objects 或其他绑定，配置在这里添加
+[ai]
+binding = "AI"
