@@ -1,21 +1,16 @@
 const input = document.getElementById('file-input');
-input.addEventListener('change', async function () {
+input.addEventListener('change', async function() {
   const file = input.files[0];
   const formData = new FormData();
   formData.append('file', file);
 
-  // 发送文件到 Cloudflare Worker 并获取结果
   const response = await fetch('/upload', {
     method: 'POST',
     body: formData
   });
-
+  
   const result = await response.json();
-
-  // 提取并显示 text 部分
-  const resultArea = document.getElementById('resultArea');
-  resultArea.style.display = 'block';
-  resultArea.textContent = result.text; // 显示 AI 返回的 text 字段内容
+  console.log(result);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
