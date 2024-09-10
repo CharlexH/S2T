@@ -1,3 +1,7 @@
+* {
+  transition: all 0.3s ease;  /* 将所有属性都应用缓动效果 */
+}
+
 html,
 body {
   height: 100%;
@@ -6,9 +10,19 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: Arial, sans-serif;
-  background: #D9D9D9;
   font-family: "Noto Sans SC";
+  background: #D9D9D9;
+}
+
+button {
+  background: none;       /* 去除背景 */
+  border: none;           /* 去除边框 */
+  padding: 0;             /* 去除内边距 */
+  margin: 0;              /* 去除外边距 */
+  font: inherit;          /* 继承父元素的字体样式 */
+  color: inherit;         /* 继承父元素的文字颜色 */
+  cursor: pointer;        /* 设置鼠标为指针 */
+  outline: none;          /* 去除聚焦时的轮廓（focus 样式） */
 }
 
 .control-button,
@@ -19,37 +33,36 @@ body {
 
 #mainArea {
   display: flex;
-  width: 800px;
-  padding: 32px;
+  padding: 24px;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 8px;
   border-radius: 32px;
+  border: 1px solid #FFF;
   background: #F5F6F7;
 }
 
 #uploadArea {
   display: flex;
-  align-items: center;
+  padding: 48px;
+  width: 612px;
+  flex-direction: column;
   justify-content: center;
-  width: -webkit-fill-available;
-  height: 400px;
+  align-items: center;
+  gap: 16px;
   border-radius: 16px;
-  border: 1px dashed #5893FF;
-  background: rgba(88, 147, 255, 0.04);
   position: relative;
   cursor: pointer; /* 添加这一行 */
   transition: background 0.3s ease; /* 添加这一行，使背景色变化更平滑 */
 }
 
 #uploadArea:hover {
-  background: rgba(88, 147, 255, 0.1);
+  background: #EEEEEE;
 }
 
 #uploadArea.drag-over {
-  background: rgba(88, 147, 255, 0.1);
-  border-color: #3F99FF;
+  background: #EEEEEE;
 }
 
 #result {
@@ -59,24 +72,16 @@ body {
 .drop-zone {
   cursor: poinrgba(89, 108, 143, 0.04);
   transition: all 0.3s ease;
-  border: 2px dashed #ccc;
   border-radius: 8px;
   padding: 20px;
 }
 
 .drop-zone:hover {
-  background-color: rgba(63, 153, 255, 0.1);
-  border-color: #3F99FF;
+  background: #EEEEEE;
 }
 
 .drop-zone--over {
-  background-color: rgba(63, 153, 255, 0.2);
-  border-color: #3F99FF;
-}
-
-.drop-zone:hover svg,
-.drop-zone--over svg {
-  transform: scale(1.05);
+  background: #EEEEEE;
 }
 
 .drop-zone svg,
@@ -101,7 +106,7 @@ body {
 
 .drop-zone p{
   font-size: 14px;
-  opacity: 0.3;
+  color: rgba(0, 0, 0, 0.30);
 }
 
 .upload-status {
@@ -120,8 +125,8 @@ body {
 
 .progress-bar {
   width: 100%;
-  height: 20px;
-  background-color: #f0f0f0;
+  height: 12px;
+  background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -129,11 +134,11 @@ body {
 .progress {
   width: 0;
   height: 100%;
-  background-color: #3F99FF;
+  background-color: #FF0000;
   transition: width 0.3s ease;
 }
 
-.cancel-button {
+/* .cancel-button {
   margin-top: 10px;
   padding: 5px 10px;
   background-color: #ff3f3f;
@@ -145,7 +150,7 @@ body {
 
 .cancel-button:hover {
   background-color: #e63636;
-}
+} */
 
 .controlsTitle {
   display: flex;
@@ -159,7 +164,7 @@ body {
   align-items: center;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
+  width: 800px;
   gap: 16px;
 }
 
@@ -243,21 +248,12 @@ body {
   transform: translate(-50%, -50%);
   width: 80%;
   text-align: center;
+  gap: 16px;
 }
 
-#resetButton {
-  /* margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #3F99FF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px; */
-}
-
-#resetButton:hover {
-  /* background-color: #3080D0; */
+.upload-status p{
+  font-size: 14px;
+  color: #000;
 }
 
 /* 在文件末尾添加以下代码 */
@@ -313,10 +309,13 @@ body {
   gap: 8px;
   align-self: stretch;
   border-radius: 16px;
+  color: #FFF;
+  text-align: center;
+  font-size: 14px;
 }
 
 #confirmYes {
-  background: #333;
+  background: #0D0C22;
   color: white;
 }
 
@@ -327,7 +326,7 @@ body {
 }
 
 #confirmYes:hover {
-  background-color: #3080D0;
+  background-color: #565564;
 }
 
 #confirmNo:hover {

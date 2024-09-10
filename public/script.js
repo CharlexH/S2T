@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showUploadStatus(name) {
     console.log('显示上传状态:', name);
     uploadContent.style.display = 'none';
-    uploadStatus.style.display = 'block';
+    uploadStatus.style.display = 'flex';
     fileName.textContent = name;
     progressBar.style.width = '0%';
   }
