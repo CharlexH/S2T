@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const playPauseIcon = document.getElementById('playPauseIcon');
-    playPauseIcon.src = '../images/play.svg';
+    playPauseIcon.src = './images/play.svg';
     playPauseIcon.alt = '播放';
     
     document.getElementById('transcription').textContent = '';
@@ -223,11 +223,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const playPauseIcon = document.getElementById('playPauseIcon');
     if (wavesurfer.isPlaying()) {
       wavesurfer.pause();
-      playPauseIcon.src = '../images/play.svg';
+      playPauseIcon.src = './images/play.svg';
       playPauseIcon.alt = '播放';
     } else {
       wavesurfer.play();
-      playPauseIcon.src = '../images/pause.svg';
+      playPauseIcon.src = './images/pause.svg';
       playPauseIcon.alt = '暂停';
     }
   }
