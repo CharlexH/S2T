@@ -1,16 +1,31 @@
 const input = document.getElementById('file-input');
 input.addEventListener('change', async function() {
-  const file = input.files[0];
+  const file = input.files[0]; // 获取用户上传的文件
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', file); // 将文件添加到 FormData 中，用于发送请求
 
-  const response = await fetch('/upload', {
-    method: 'POST',
-    body: formData
-  });
-  
-  const result = await response.json();
-  console.log(result);
+  try {
+    // 发送 POST 请求到 Cloudflare Whisper API
+    const response = await fetch('https://api.cloudflare.com/client/v4/accounts/0c169131cea74a48a474785aa379de26/ai/run/@cf/openai/whisper', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer 5lzwsa6xGfZLCFVSHEJU2RV-oVHpLL65KGV758lR', // 使用你的 API 密钥
+      },
+      body: formData // 将文件数据作为请求体发送
+    });
+
+    // 获取 API 的响应结果（JSON 格式）
+    const result = await response.json();
+
+    // 从结果中提取转写文本，并显示在页面上
+    const transcriptionText = result.result.text; // 假设 API 返回的 JSON 中包含 "text" 字段
+    const resultArea = document.getElementById('resultArea'); // 获取页面的 resultArea 区域
+    resultArea.textContent = transcriptionText; // 将转写文本显示在 resultArea 中
+    resultArea.style.display = 'block'; // 确保 resultArea 可见
+
+  } catch (error) {
+    console.error('API 请求出错:', error); // 捕获并打印错误信息
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
