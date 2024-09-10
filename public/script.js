@@ -5,11 +5,14 @@ input.addEventListener('change', async function() {
   formData.append('file', file); // 将文件添加到 FormData 中，用于发送请求
 
   try {
+    // 从 Cloudflare Worker 获取 API 密钥
+    const API_KEY = await env.API_KEY;
+
     // 发送 POST 请求到 Cloudflare Whisper API
     const response = await fetch('https://api.cloudflare.com/client/v4/accounts/0c169131cea74a48a474785aa379de26/ai/run/@cf/openai/whisper', {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer 5lzwsa6xGfZLCFVSHEJU2RV-oVHpLL65KGV758lR', // 使用你的 API 密钥
+        'Authorization': `Bearer ${API_KEY}`, // 使用从环境变量获取的 API 密钥
       },
       body: formData // 将文件数据作为请求体发送
     });
