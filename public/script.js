@@ -1,16 +1,20 @@
 const input = document.getElementById('file-input');
-input.addEventListener('change', async function() {
+input.addEventListener('change', async function () {
   const file = input.files[0];
   const formData = new FormData();
   formData.append('file', file);
 
+  // Send the file to the Cloudflare Worker for transcription
   const response = await fetch('/upload', {
     method: 'POST',
     body: formData
   });
-  
+
+  // Display the transcription in resultArea
   const result = await response.json();
-  console.log(result);
+  const resultArea = document.getElementById('resultArea');
+  resultArea.style.display = 'flex';
+  resultArea.textContent = `Transcript: ${result.transcript}`;
 });
 
 document.addEventListener('DOMContentLoaded', () => {
